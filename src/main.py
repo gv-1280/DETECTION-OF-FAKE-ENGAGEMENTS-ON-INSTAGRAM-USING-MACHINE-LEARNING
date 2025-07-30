@@ -36,9 +36,25 @@ except FileNotFoundError:
 except Exception as e:
     print("Unexpected error accur while loading the file ")
 
+selected_features = [
+    'follower_count',
+    'like_count',
+    'comment_count',
+    'avg_comment_length',
+    'emoji_comment_ratio',
+    'like_comment_ratio'  # dropped engagement_rate
+]
+
 df['label'] = df['label'].map({'real' : 0,'fake' : 1})
 #print(df.dtypes) #to check if the dataset is in numeric value or not 
-x = df.drop(['post_id', 'label', 'post_hour'], axis=1)
+selected_features = [
+    'follower_count',
+    'like_count',
+    'comment_count',
+    'avg_comment_length',
+    'emoji_comment_ratio',
+    'like_comment_ratio'  ]
+x = df[selected_features]
 y = df['label']
 # print(x.head())
 # print(x.shape)
@@ -59,11 +75,13 @@ ensemble = VotingClassifier(
 
 #train your model
 ensemble.fit(x_train,y_train)
+print("x_train shape ",x_train.shape)
+print("feature used for training the model ",x_train.columns)
 
-#make predictions 
+#make predictions
 y_pred = ensemble.predict(x_test)
 
-#checking acc 
+#checking acc
 print(classification_report(y_test,y_pred))
 accuracy = accuracy_score(y_pred,y_test)
 print("Accuracy : ",accuracy)
@@ -89,5 +107,11 @@ plt.xticks(range(len(importances)), feature_names[indices], rotation=90)
 plt.tight_layout()
 plt.show()
 
-#save the model 
-joblib.dump(ensemble,'models/ensemble_model.pkl')
+#save the model
+try:
+    joblib.dump(ensemble,'models/ensemble_model.pkl')
+    print("the model is saved successfully")
+except Exception as e:
+    print("Caused an issue ",e)
+
+# joblib.dump(scalar,'../models/scaler.pkl')
