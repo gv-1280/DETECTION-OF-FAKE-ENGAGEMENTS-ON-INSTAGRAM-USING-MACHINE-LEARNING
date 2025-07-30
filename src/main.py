@@ -5,7 +5,7 @@ import os
 
 #for data visualization
 import matplotlib.pyplot as plt
-import seaborn as sns
+# import seaborn as sns
 
 #for machine learning
 from sklearn.model_selection import train_test_split
@@ -18,8 +18,6 @@ from sklearn.metrics import accuracy_score,precision_score,recall_score,confusio
 #for model saving
 import joblib
 
-#for web UI
-# import streamlit as st
 current_dir = os.path.dirname(os.path.abspath('data/instagram_engagement_dataset.csv'))
 project_dir = os.path.dirname(current_dir)
 data_folder_path = os.path.join(project_dir,'data')
@@ -39,18 +37,17 @@ except Exception as e:
     print("Unexpected error accur while loading the file ")
 
 df['label'] = df['label'].map({'real' : 0,'fake' : 1})
-# print(df.dtypes) #to check if the dataset is in numeric value or not 
-x = df.drop(['post_id','follower_count','like_count',
-             'comment_count','avg_comment_length','emoji_comment_ratio',
-             'post_hour','like_comment_ratio','engagement_rate'],axis = 1)
+#print(df.dtypes) #to check if the dataset is in numeric value or not 
+x = df.drop(['post_id', 'label', 'post_hour'], axis=1)
 y = df['label']
+# print(x.head())
+# print(x.shape)
 
 #splitting the data
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
 
 #create and train the model
 rf = RandomForestClassifier(n_estimators=100,random_state=42)
-# rf.fit(x_train,y_train)
 lr = LogisticRegression(max_iter=1000)
 xgb = XGBClassifier(use_label_encoder=False,eval_matric='logloss')
 
@@ -76,10 +73,10 @@ cm = confusion_matrix(y_test,y_pred)
 display = ConfusionMatrixDisplay(confusion_matrix=cm)
 display.plot()
 
-#classification report 
+#classification report
 print(classification_report(y_test,y_pred))
 
-#feature importance 
+#feature importance
 rf_model = ensemble.named_estimators_['rf']
 importances = rf_model.feature_importances_
 indices = np.argsort(importances)[::-1]
@@ -91,3 +88,6 @@ plt.bar(range(len(importances)), importances[indices], align='center')
 plt.xticks(range(len(importances)), feature_names[indices], rotation=90)
 plt.tight_layout()
 plt.show()
+
+#save the model 
+joblib.dump(ensemble,'models/ensemble_model.pkl')
