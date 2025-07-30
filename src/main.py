@@ -36,14 +36,6 @@ except FileNotFoundError:
 except Exception as e:
     print("Unexpected error accur while loading the file ")
 
-selected_features = [
-    'follower_count',
-    'like_count',
-    'comment_count',
-    'avg_comment_length',
-    'emoji_comment_ratio',
-    'like_comment_ratio'  # dropped engagement_rate
-]
 
 df['label'] = df['label'].map({'real' : 0,'fake' : 1})
 #print(df.dtypes) #to check if the dataset is in numeric value or not 
@@ -77,6 +69,7 @@ ensemble = VotingClassifier(
 ensemble.fit(x_train,y_train)
 print("x_train shape ",x_train.shape)
 print("feature used for training the model ",x_train.columns)
+print(df['label'].value_counts())
 
 #make predictions
 y_pred = ensemble.predict(x_test)
@@ -113,5 +106,3 @@ try:
     print("the model is saved successfully")
 except Exception as e:
     print("Caused an issue ",e)
-
-# joblib.dump(scalar,'../models/scaler.pkl')
