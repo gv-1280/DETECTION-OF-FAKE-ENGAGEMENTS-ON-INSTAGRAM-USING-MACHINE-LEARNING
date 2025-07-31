@@ -6,7 +6,7 @@ Detect whether an Instagram profile shows genuine engagement or likely fake inte
 
 Fake engagement (bots, purchased likes/comments) is a common issue on social media. This machine learning-based web app helps identify such behavior by analyzing post engagement metrics.
 
-### 🔗 [Live App on Streamlit](https://your-streamlit-app-url)
+### 🔗 [Live App on Render](https://authentigram.onrender.com)
 
 ---
 
