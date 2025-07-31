@@ -1,3 +1,7 @@
+# This file is part of the Instagram Engagement Checker.
+# Copyright (c) 2025 Gautam Vaishnav
+# Licensed under the MIT License. See LICENSE file for details.
+
 #importing required libraries
 import streamlit as st
 import joblib
@@ -5,9 +9,6 @@ import numpy as np
 import os  
 
 #load the model
-# model_path = os.path.join(os.path.dirname(__file__),'../models/ensemble_model.pkl')
-# model_path = os.path.abspath(model_path)
-# model = joblib.load(model_path)
 model = joblib.load('models/ensemble_model.pkl')
 
 #app title 

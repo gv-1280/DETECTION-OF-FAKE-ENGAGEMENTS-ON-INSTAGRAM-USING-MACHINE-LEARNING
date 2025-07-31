@@ -5,7 +5,6 @@ import os
 
 #for data visualization
 import matplotlib.pyplot as plt
-# import seaborn as sns
 
 #for machine learning
 from sklearn.model_selection import train_test_split
@@ -24,7 +23,6 @@ data_folder_path = os.path.join(project_dir,'data')
 dataset_file_path = os.path.join(data_folder_path,'custom_instagram_dataset.csv')
 print("attempting to load dataset from :" ,{dataset_file_path})
 
-# print("cwd is : ", os.getcwd()) #to get the current wokring directory
 #load dataset using os to make universal
 try :
     df = pd.read_csv(dataset_file_path)
@@ -74,12 +72,12 @@ print(df['label'].value_counts())
 #make predictions
 y_pred = ensemble.predict(x_test)
 
-rf_model = ensemble.named_estimators_['rf']
-importances = rf_model.feature_importances_
-for name, score in zip(x.columns, importances):
-    print(f"{name}: {score:.4f}")
+# rf_model = ensemble.named_estimators_['rf']
+# importances = rf_model.feature_importances_
+# for name, score in zip(x.columns, importances):
+#     print(f"{name}: {score:.4f}")
 
-#checking acc
+#checking accuracy
 print(classification_report(y_test,y_pred))
 accuracy = accuracy_score(y_pred,y_test)
 print("Accuracy : ",accuracy) 
