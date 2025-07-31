@@ -18,10 +18,10 @@ from sklearn.metrics import accuracy_score,precision_score,recall_score,confusio
 #for model saving
 import joblib
 
-current_dir = os.path.dirname(os.path.abspath('data/instagram_engagement_dataset.csv'))
+current_dir = os.path.dirname(os.path.abspath('data/custom_instagram_dataset.csv'))
 project_dir = os.path.dirname(current_dir)
 data_folder_path = os.path.join(project_dir,'data')
-dataset_file_path = os.path.join(data_folder_path,'instagram_engagement_dataset.csv')
+dataset_file_path = os.path.join(data_folder_path,'custom_instagram_dataset.csv')
 print("attempting to load dataset from :" ,{dataset_file_path})
 
 # print("cwd is : ", os.getcwd()) #to get the current wokring directory
@@ -74,10 +74,15 @@ print(df['label'].value_counts())
 #make predictions
 y_pred = ensemble.predict(x_test)
 
+rf_model = ensemble.named_estimators_['rf']
+importances = rf_model.feature_importances_
+for name, score in zip(x.columns, importances):
+    print(f"{name}: {score:.4f}")
+
 #checking acc
 print(classification_report(y_test,y_pred))
 accuracy = accuracy_score(y_pred,y_test)
-print("Accuracy : ",accuracy)
+print("Accuracy : ",accuracy) 
 
 #to check where the model is making errors
 cm = confusion_matrix(y_test,y_pred)

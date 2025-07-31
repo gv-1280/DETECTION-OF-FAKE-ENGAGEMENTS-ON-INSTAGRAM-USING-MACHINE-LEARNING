@@ -21,9 +21,8 @@ followers = st.number_input("Number Of Followers ",min_value=1)
 likes = st.number_input("Number Of Likes ",min_value=0)
 comments = st.number_input("Number Of Comments",min_value=0)
 average_comment_length = st.number_input("Avg. Comment Length",min_value=0)
-emoji_comment_ratio = st.slider("Emoji Comment Ratio ", min_value=0.0, max_value=1.0, step=0.01)
-like_comment_ratio = st.slider("Like to Comment Ratio", min_value=0.0, max_value=1.0, step=0.01)
-
+emoji_comment_ratio = st.slider("Emoji Comment Ratio (%) ", min_value=0.0, max_value=1.0, step=0.01)
+like_comment_ratio = st.slider("Like to Comment Ratio (%) ", min_value=0.0, max_value=1.0, step=0.01)
 #engagement rate calculation 
 engagement_rate = (likes + comments)/followers
 st.markdown(f"** Engagement Rate **`{engagement_rate:.3f}`")
