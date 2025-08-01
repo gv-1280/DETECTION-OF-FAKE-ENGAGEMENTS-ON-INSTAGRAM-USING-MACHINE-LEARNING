@@ -72,11 +72,6 @@ print(df['label'].value_counts())
 #make predictions
 y_pred = ensemble.predict(x_test)
 
-# rf_model = ensemble.named_estimators_['rf']
-# importances = rf_model.feature_importances_
-# for name, score in zip(x.columns, importances):
-#     print(f"{name}: {score:.4f}")
-
 #checking accuracy
 print(classification_report(y_test,y_pred))
 accuracy = accuracy_score(y_pred,y_test)
@@ -95,6 +90,8 @@ rf_model = ensemble.named_estimators_['rf']
 importances = rf_model.feature_importances_
 indices = np.argsort(importances)[::-1]
 feature_names = np.array(x.columns)
+# for name, score in zip(x.columns, importances):
+#     print(f"{name}: {score:.4f}")
 
 plt.figure(figsize=(10,6))
 plt.title("Feature importances")

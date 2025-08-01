@@ -35,7 +35,7 @@ if st.button("Predict Authenticity"):
     prediction = model.predict(input_data)
 
     #display result
-    if prediction == 0:
+    if prediction == 1:
         st.success("✅ This profile appears to be **Genuine**.")
     else:
         st.error("❌ This profile appears to be **Fake**.")
